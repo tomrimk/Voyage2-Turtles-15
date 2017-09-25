@@ -1,0 +1,14 @@
+{
+  "name": "voyage2-turtles-15",
+  "version": "0.0.1",
+  "description": "Blocks all websites but a whitelisted few once a pomodoro timer has been started",
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chingu-coders/Voyage2-Turtles-15/issues"
+  },
+  "homepage": "https://github.com/chingu-coders/Voyage2-Turtles-15#readme",
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
+  }
+}

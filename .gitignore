@@ -4,6 +4,9 @@
 *.sublime-project
 *.sublime-workspace
 
+# Node
+node_modules
+
 # OS
 ._*
 .DS_Store

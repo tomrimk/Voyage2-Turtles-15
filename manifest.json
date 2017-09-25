@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Turtles Team 15 Extension",
+  "description": "Blocks all websites but a whitelisted few once a pomodoro timer has been started",
+  "version": "0.0.1",
+
+  "icons": {
+    "32": "assets/images/icon.png",
+    "64": "assets/images/icon@2x.png"
+  },
+
+  "background": {
+    "scripts": ["assets/js/background.js"]
+  },
+
+  "browser_action": {
+    "default_icon": "assets/images/icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Turtles Team 15"
+  },
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*"
+  ]
+}
