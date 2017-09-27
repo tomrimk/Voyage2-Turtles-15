@@ -17,50 +17,44 @@ function getView(name) {
 /* exported countdownTimer */
 /** triggers when the timer button is clicked */
 function countdownTimer() {
-  const view = getView('popup.html');
+  const view = getView('popup.html').window;
 
   if (!isBlockerActive()) {
     enableBlocker();
-    view.window.updateBlockerStatus();
-    // todo: get rid of this
-    // document.querySelector('h2').textContent = 'active';
+    view.updateBlockerStatus();
   } else {
     disableBlocker();
-    view.window.updateBlockerStatus();
-    // todo: get rid of this
-    // document.querySelector('h2').textContent = 'not active';
+    view.updateBlockerStatus();
   }
-}
-
-/** @return {Boolean} */
-function isBlockerActive() {
-  return chrome.webRequest.onBeforeRequest.hasListener(
-    webRequestBlocker);
 }
 
 /** activates web request blocker */
 function enableBlocker() {
   chrome.webRequest.onBeforeRequest.addListener(
   webRequestBlocker,
-  {urls: ['<all_urls>']},
+  {urls: ['http://*/*', 'https://*/*']},
   ['blocking']
   );
 }
 
 /** removes web request blocker */
 function disableBlocker() {
-  chrome.webRequest.onBeforeRequest.removeListener(
-    webRequestBlocker
-  );
+  chrome.webRequest.onBeforeRequest.removeListener(webRequestBlocker);
 }
 
+/** @return {Boolean} */
+function isBlockerActive() {
+  return chrome.webRequest.onBeforeRequest.hasListener(webRequestBlocker);
+}
+
+/* eslint no-console: false*/
 /**
- * @param {object} request contains details about the intercepted request
- * @return {BlockingResponse} used to modify network requests
- */
+* @param {object} request contains details about the intercepted request
+* @return {BlockingResponse} used to modify network requests
+*/
 function webRequestBlocker(request) {
-  // todo: get rid of this
-  document.querySelector('h2').textContent = `blocked ${request.url}`;
+  console.log(request);
+  // window.popup(`blocked ${request.url}`);
   // am I really returningi a BlockingResponse?
   const blocking = {
     cancel: false,
