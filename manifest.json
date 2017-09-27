@@ -27,8 +27,7 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "http://*/*",
-    "https://*/*",
+    "<all_urls>",
     "storage",
     "notifications"
   ]
