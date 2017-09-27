@@ -1,3 +1,5 @@
+const bg = chrome.extension.getBackgroundPage();
+
 /** @function */
 function openOptionsPage() {
   if (chrome.runtime.openOptionsPage) {
@@ -7,19 +9,17 @@ function openOptionsPage() {
   }
 }
 
-/* global isWebRequestBlockerActive: true */
 /** updates page element with the current blocker status */
-function updateWebRequestBlockerStatus() {
+function updateBlockerStatus() {
   const status = document.querySelector('h2');
-  status.innerHTML = (isWebRequestBlockerActive() ? 'active' : 'not active');
+  status.textContent = (bg.isBlockerActive() ? 'active' : 'not active');
 }
 
-/* global countdownTimer: true */
 document.addEventListener('DOMContentLoaded', function() {
-  updateWebRequestBlockerStatus();
+  updateBlockerStatus();
 
   document.querySelector('#timer').addEventListener(
-    'click', countdownTimer);
+    'click', bg.countdownTimer);
 
   document.querySelector('#options').addEventListener(
     'click', openOptionsPage);
