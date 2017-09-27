@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Turtles Team 15 Extension",
+  "name": "Pomidoras",
   "description": "Blocks all websites but a whitelisted few once a pomodoro timer has been started",
   "version": "0.0.1",
 
@@ -28,6 +28,8 @@
     "webRequest",
     "webRequestBlocking",
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "storage",
+    "notifications"
   ]
 }
