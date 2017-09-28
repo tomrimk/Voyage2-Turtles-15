@@ -54,8 +54,5 @@ function isBlockerActive() {
 * @return {BlockingResponse} used to modify network requests
 */
 function webRequestBlocker(request) {
-  // if (isUrlInWhitelist)
-  if (request.url.indexOf('://www.google.com') != -1) {
-    return {cancel: true};
-  }
+  return {cancel: true};
 }
