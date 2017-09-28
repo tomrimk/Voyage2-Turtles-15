@@ -31,15 +31,17 @@ function countdownTimer() {
 /** activates web request blocker */
 function enableBlocker() {
   chrome.webRequest.onBeforeRequest.addListener(
-  webRequestBlocker,
-  {urls: ['http://*/*', 'https://*/*']},
-  ['blocking']
+  webRequestBlocker, // callback
+  {urls: ['http://*/*', 'https://*/*']}, // filter
+  ['blocking'] // opt_extraInfoSpec ('blocking' means handles synchronously)
   );
+  chrome.browserAction.setBadgeText({text: 'ON'});
 }
 
 /** removes web request blocker */
 function disableBlocker() {
   chrome.webRequest.onBeforeRequest.removeListener(webRequestBlocker);
+  chrome.browserAction.setBadgeText({text: 'OFF'});
 }
 
 /** @return {Boolean} */
@@ -47,18 +49,13 @@ function isBlockerActive() {
   return chrome.webRequest.onBeforeRequest.hasListener(webRequestBlocker);
 }
 
-/* eslint no-console: false*/
 /**
 * @param {object} request contains details about the intercepted request
 * @return {BlockingResponse} used to modify network requests
 */
 function webRequestBlocker(request) {
-  console.log(request);
-  // window.popup(`blocked ${request.url}`);
-  // am I really returningi a BlockingResponse?
-  const blocking = {
-    cancel: false,
-    redirectUrl: 'https://google.com',
-  };
-  return blocking;
+  // if (isUrlInWhitelist)
+  if (request.url.indexOf('://www.google.com') != -1) {
+    return {cancel: true};
+  }
 }
