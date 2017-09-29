@@ -1,5 +1,5 @@
 /** Countdown timer logic */
-function countdownTimer() {
+function timer() {
   toggleWebRequestBlocker();
 }
 
@@ -10,7 +10,7 @@ function toggleWebRequestBlocker() {
 }
 
 /** Recommended method to provide a link to the options page */
-function openOptionsPage() {
+function options() {
   if (chrome.runtime.openOptionsPage) {
     chrome.runtime.openOptionsPage();
   } else {
@@ -19,10 +19,10 @@ function openOptionsPage() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelector('#timer').addEventListener(
-    'click', countdownTimer);
+/** document init function */
+function init() {
+  document.querySelector('#timer').addEventListener('click', timer);
+  document.querySelector('#options').addEventListener('click', options);
+}
 
-  document.querySelector('#options').addEventListener(
-    'click', openOptionsPage);
-});
+document.addEventListener('DOMContentLoaded', init);
