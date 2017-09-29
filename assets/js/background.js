@@ -1,61 +1,89 @@
-/** keeping all webRequest helper functions together */
-class WebRequestBlocker { // eslint-disable-line no-unused-vars
-  /**
-  * all web requests made pass through here to determine whether
-  *   they should be blocked.
-  * todo: implement whitelist here.
-  *
-  * @param {object} request - contains details about the intercepted request
-  * @return {BlockingResponse} used to modify network requests
-  */
-  block(request) {
-    let blockingResponse = {cancel: true};
-    return blockingResponse;
-  }
+const WebRequestBlocker = function() {};
 
-  /**
-   * enables the blocker by attaching the listener
-   * @return {boolean} - is the blocker enabled
-   */
-  enable() {
-    chrome.webRequest.onBeforeRequest.addListener(
-    this.block,
+/**
+ * disables the blocker by removing the listener
+ * @return {boolean} - is the blocker enabled
+ */
+WebRequestBlocker.disable = function() {
+  chrome.webRequest.onBeforeRequest.removeListener(this.listener);
+  // temporary to show that our blocker works
+  chrome.browserAction.setBadgeText({text: ''});
+  return false;
+};
+
+/**
+ * enables the blocker by attaching the listener
+ * @return {boolean} - is the blocker enabled
+ */
+WebRequestBlocker.enable = function() {
+  chrome.webRequest.onBeforeRequest.addListener(
+    this.listener,
     {urls: ['http://*/*', 'https://*/*']},
     ['blocking']);
-    // temporary to show that our blocker works
-    chrome.browserAction.setBadgeText({text: 'ON'});
-    return true;
-  }
+  // temporary to show that our blocker works
+  chrome.browserAction.setBadgeText({text: 'ON'});
+  return true;
+};
 
-  /**
-   * disables the blocker by removing the listener
-   * @return {boolean} - is the blocker enabled
-   */
-  disable() {
-    chrome.webRequest.onBeforeRequest.removeListener(this.block);
-    // temporary to show that our blocker works
-    chrome.browserAction.setBadgeText({text: ''});
-    return false;
-  }
+/** @return {boolean} - is the blocker enabled */
+WebRequestBlocker.isEnabled = function() {
+  return chrome.webRequest.onBeforeRequest.hasListener(this.listener);
+};
 
-  /** @return {boolean} - is the blocker enabled */
-  isEnabled() {
-    return chrome.webRequest.onBeforeRequest.hasListener(this.block);
-  }
+/**
+* web requests go through here to determine whether they should be blocked.
+* todo: implement whitelist here.
+*
+* @param {object} request - contains details about the intercepted request
+* @return {BlockingResponse} used to modify network requests
+*/
+WebRequestBlocker.listener = function(request) {
+  let blockingResponse = {cancel: true};
+  return blockingResponse;
+};
 
-  /**
-   * toggles the blocker on-off
-   * @return {boolean} enabled - is the blocker enabled
-   */
-  toggle() {
-    if (!this.isEnabled()) {
-      this.enable();
-    } else {
-      this.disable();
+/**
+ * Handles messages to and from WebRequestBlocker
+ * @param  {string} message - the message sent from elsewhere
+ * @return {boolean} - is the blocker enabled
+ */
+WebRequestBlocker.messageHandler = function(message) {
+  switch (message) {
+    case 'enable': {
+      WebRequestBlocker.enable();
+      break;
     }
-    return this.isEnabled();
+    case 'disable': {
+      WebRequestBlocker.disable();
+      break;
+    }
+    case 'isEnabled': {
+      WebRequestBlocker.isEnabled();
+      break;
+    }
+    case 'toggle': {
+      WebRequestBlocker.toggle();
+      break;
+    }
+    default: {
+      break;
+    }
   }
-}
+  return WebRequestBlocker.isEnabled();
+};
+
+/**
+ * toggles the blocker on-off
+ * @return {boolean} enabled - is the blocker enabled
+ */
+WebRequestBlocker.toggle = function() {
+  if (!this.isEnabled()) {
+    this.enable();
+  } else {
+    this.disable();
+  }
+  return this.isEnabled();
+};
 
 
 /**
@@ -64,30 +92,11 @@ class WebRequestBlocker { // eslint-disable-line no-unused-vars
  * @param  {Object} sender - the id and url the message originated from
  * @param  {function} sendResponse - function that sends the JSON response
  */
-function messageListener(request, sender, sendResponse) {
-  // todo: check if request contains webRequestBlocker name
-  switch (request.WebRequestBlocker) {
-    case 'enable': {
-      sendResponse({isEnabled: blocker.enable()});
-      break;
-    }
-    case 'disable': {
-      sendResponse({isEnabled: blocker.disable()});
-      break;
-    }
-    case 'isEnabled': {
-      sendResponse({isEnabled: blocker.isEnabled()});
-      break;
-    }
-    case 'toggle': {
-      sendResponse({isEnabled: blocker.toggle()});
-      break;
-    }
-    default: {
-      break;
-    }
+function onMessageListener(request, sender, sendResponse) {
+  if (request.hasOwnProperty('WebRequestBlocker')) {
+    let response = WebRequestBlocker.messageHandler(request.WebRequestBlocker);
+    sendResponse({isEnabled: response});
   }
 }
 
-const blocker = new WebRequestBlocker();
-chrome.runtime.onMessage.addListener(messageListener);
+chrome.runtime.onMessage.addListener(onMessageListener);
