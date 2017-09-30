@@ -1,5 +1,16 @@
-/** @function */
-function openOptionsPage() {
+/** Countdown timer logic */
+function timer() {
+  toggleWebRequestBlocker();
+}
+
+/** Sends a message to WebRequestBlocker to toggle it on-off */
+function toggleWebRequestBlocker() {
+  let message = {WebRequestBlocker: 'toggle'};
+  chrome.runtime.sendMessage(message, function(response) {});
+}
+
+/** Recommended method to provide a link to the options page */
+function options() {
   if (chrome.runtime.openOptionsPage) {
     chrome.runtime.openOptionsPage();
   } else {
@@ -7,5 +18,11 @@ function openOptionsPage() {
   }
 }
 
-const options = document.querySelector('#options');
-options.addEventListener('click', openOptionsPage);
+
+/** document init function */
+function init() {
+  document.querySelector('#timer').addEventListener('click', timer);
+  document.querySelector('#options').addEventListener('click', options);
+}
+
+document.addEventListener('DOMContentLoaded', init);
