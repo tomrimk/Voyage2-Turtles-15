@@ -12,5 +12,8 @@
     "eslint-config-google": "^0.9.1",
     "mocha": "^3.5.3"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "test": "mocha"
+  }
 }
