@@ -11,22 +11,13 @@ function log(message) {
 }
 
 /**
- * Stops the form from submitting when pressing the 'Enter' key.
- * Validates the domain field and if valid, add it to the whitelist textarea.
- * @param {Event} event - KeyboardEvent
+ * Populates form fields with data from storage
+ * @param {Object} data - JSON data object
  */
-function validateDomainOnEnter(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-
-    let input = document.querySelector('input[name="domain"');
-    if (isValidDomain(input.value)) {
-      let whitelist = document.querySelector('textarea[name="whitelist"');
-      whitelist.textContent = `${whitelist.textContent}\n${input.value}`;
-    } else {
-      // invalid domain
-    }
-  }
+function fillForm(data) {
+  log('retrieved from storage: ' + JSON.stringify(data));
+  let whitelist = document.getElementsByTagName('textarea')[0];
+  whitelist.textContent = data['whitelist'];
 }
 
 /**
@@ -37,16 +28,6 @@ function validateDomainOnEnter(event) {
  */
 function isValidDomain(domain) {
   return true;
-}
-
-/**
- * Populates form fields with data from storage
- * @param {Object} data - JSON data object
- */
-function fillForm(data) {
-  log('retrieved from storage: ' + JSON.stringify(data));
-  let whitelist = document.getElementsByTagName('textarea')[0];
-  whitelist.textContent = data['whitelist'];
 }
 
 /**
@@ -65,6 +46,25 @@ function submit(event) {
   chrome.storage.local.set(entries, function() {
     log('saved to storage: ' + JSON.stringify(entries));
   });
+}
+
+/**
+ * Stops the form from submitting when pressing the 'Enter' key.
+ * Validates the domain field and if valid, add it to the whitelist textarea.
+ * @param {Event} event - KeyboardEvent
+ */
+function validateDomainOnEnter(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+
+    let input = document.querySelector('input[name="domain"');
+    if (isValidDomain(input.value)) {
+      let whitelist = document.querySelector('textarea[name="whitelist"');
+      whitelist.textContent = `${whitelist.textContent}\n${input.value}`;
+    } else {
+      // invalid domain
+    }
+  }
 }
 
 
