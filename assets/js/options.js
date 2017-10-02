@@ -16,7 +16,7 @@ function log(message) {
  */
 function fillForm(data) {
   log('retrieved from storage: ' + JSON.stringify(data));
-  let whitelist = document.getElementsByTagName('textarea')[0];
+  let whitelist = document.querySelector('textarea[name="whitelist"]');
   whitelist.textContent = data['whitelist'];
 }
 
@@ -35,6 +35,7 @@ function isValidDomain(domain) {
  * @param {Event} event - submit event
   */
 function submit(event) {
+  log('submit event');
   event.preventDefault();
 
   let entries = {};
@@ -54,12 +55,13 @@ function submit(event) {
  * @param {Event} event - KeyboardEvent
  */
 function validateDomainOnEnter(event) {
+  log('validate domain on enter');
   if (event.key === 'Enter') {
     event.preventDefault();
 
-    let input = document.querySelector('input[name="domain"');
+    let input = document.querySelector('input[name="domain"]');
     if (isValidDomain(input.value)) {
-      let whitelist = document.querySelector('textarea[name="whitelist"');
+      let whitelist = document.querySelector('textarea[name="whitelist"]');
       whitelist.textContent = `${whitelist.textContent}\n${input.value}`;
     } else {
       // invalid domain

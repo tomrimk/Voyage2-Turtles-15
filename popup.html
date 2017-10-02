@@ -1,16 +1,48 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="assets/css/global.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <script src="assets/js/popup.js"></script>
-<title>Pomodoras</title>
 
-<h1>Pomodoras</h1>
-<button id="timer">Start</button>
+<nav style="width: 350px"> <!-- temp -->
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Timer</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Tasks</a>
+    </li>
+  </ul>
+</nav>
 
-<button id="options">Options</button>
+<main class="container-fluid text-center p-3" role="main">
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  <form name="timer">
+    <div class="form-group">
+      <legend>What will you work on next?</legend>
+      <label for="selectTask">Select a task:</label>
+      <input type="text" class="form-control" id="selectTask" name="task">
+      <small id="selectTask" class="form-text text-muted">Choose a short task!</small>
+    </div>
+
+    <div class="form-group pb-3">
+      <legend>How long will you work on it?</legend>
+      <button type="button" class="btn btn-secondary">25 minutes</button>
+      <button type="button" class="btn btn-secondary">50 minutes</button>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary" id="timer">Start</button>
+    </div>
+
+  </form>
+
+</main>
+
+<footer class="footer">
+  <div class="container-fluid text-right p-2">
+    <button class="btn btn-sm" id="options">&#x2699;</button>
+  </div>
+</footer>
