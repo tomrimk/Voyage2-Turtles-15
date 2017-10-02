@@ -1,5 +1,3 @@
-/* eslint no-console: 1 */
-
 /**
  * temp logging function for the option page
  * @param {String} message
@@ -33,9 +31,8 @@ function isValidDomain(domain) {
 /**
  * Gets form entries and stores it
  * @param {Event} event - submit event
-  */
+ */
 function submit(event) {
-  log('submit event');
   event.preventDefault();
 
   let entries = {};
@@ -55,7 +52,6 @@ function submit(event) {
  * @param {Event} event - KeyboardEvent
  */
 function validateDomainOnEnter(event) {
-  log('validate domain on enter');
   if (event.key === 'Enter') {
     event.preventDefault();
 
