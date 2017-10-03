@@ -49,4 +49,31 @@ const TimerFunctions = {
       "seconds": seconds
     };
   },
+
+  /**
+   * Pauses the timer / resumes the timer
+   */
+  pause: function(){
+    if(!window.isPaused){
+      clearInterval(window.timeInterval);
+      window.isPaused = true;
+    } else {
+      let timeDisplay = document.getElementById("time").innerHTML;
+      let str = timeDisplay.split(" ");
+      let minutes = parseInt(str[0], 10);
+      let seconds = parseInt(str[2], 10);
+
+      TimerFunctions.start(minutes, seconds);
+      window.isPaused = false;
+    }
+  },
+
+  /**
+   * Stops the timer and resets it
+   */
+  stop: function(){
+    clearInterval(window.timeInterval);
+    let timeDisplay = document.getElementById("time");
+    timeDisplay.innerHTML = "00 : 00";
   }
+}
