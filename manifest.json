@@ -13,7 +13,8 @@
   "background": {
     "scripts": [
       "assets/js/background.js",
-      "assets/js/webrequestblocker.js"
+      "assets/js/webrequestblocker.js",
+      "assets/js/timer.js"
     ]
   },
 

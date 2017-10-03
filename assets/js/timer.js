@@ -7,14 +7,14 @@ const TimerFunctions = {
      * @param {number} minutes - sets the minutes for the timer
      * @param {number} seconds - sets the seconds for the timer
      */
-    start: function(minutes, seconds){
+    startTimer: function(minutes, seconds) {
       // converting minutes and seconds to milliseconds
       let m = minutes * 60000;
       let s = seconds * 1000;
 
       let timeToRun = new Date(Date.parse(new Date()) +  m + s);
-      TimerFunctions.update(timeToRun);
-      window.timeInterval = setInterval(() => { TimerFunctions.update(timeToRun)}, 1000);
+      TimerFunctions.updateTimer(timeToRun);
+      window.timeInterval = setInterval(() => { TimerFunctions.updateTimer(timeToRun)}, 1000);
       window.isPaused = false;
     },
 
@@ -22,13 +22,13 @@ const TimerFunctions = {
    * Updates timer and his text
    * @param {object} timeToRun - sets time that is left
    */
-  update: function(timeToRun){
+  updateTimer: function(timeToRun) {
     let timeDisplay = document.getElementById("time");
     let runningTime = TimerFunctions.getRemainingTime(timeToRun);
     timeDisplay.innerHTML = ('0' + runningTime.minutes).slice(-2) + " : " + ('0' + runningTime.seconds).slice(-2);
 
     /**If time runs out, stop the interval */
-    if(runningTime.finalTime <= 0){
+    if(runningTime.finalTime <= 0) {
       clearInterval(window.timeInterval);
     }
   },
@@ -38,7 +38,7 @@ const TimerFunctions = {
    * @param {object} time - passing time that needs to be calculated
    * @return {object} - calculated total time, minutes and seconds
    */
-  getRemainingTime: function(time){
+  getRemainingTime: function(time) {
     let finalTime = Date.parse(time) - Date.parse(new Date());
     let minutes = Math.floor((finalTime / 1000 / 60) % 60);
     let seconds = Math.floor((finalTime / 1000) % 60);
@@ -53,8 +53,8 @@ const TimerFunctions = {
   /**
    * Pauses the timer / resumes the timer
    */
-  pause: function(){
-    if(!window.isPaused){
+  pauseTimer: function() {
+    if(!window.isPaused) {
       clearInterval(window.timeInterval);
       window.isPaused = true;
     } else {
@@ -63,7 +63,7 @@ const TimerFunctions = {
       let minutes = parseInt(str[0], 10);
       let seconds = parseInt(str[2], 10);
 
-      TimerFunctions.start(minutes, seconds);
+      TimerFunctions.startTimer(minutes, seconds);
       window.isPaused = false;
     }
   },
@@ -71,9 +71,9 @@ const TimerFunctions = {
   /**
    * Stops the timer and resets it
    */
-  stop: function(){
+  stopTimer: function() {
     clearInterval(window.timeInterval);
     let timeDisplay = document.getElementById("time");
     timeDisplay.innerHTML = "00 : 00";
   }
-}
+};
