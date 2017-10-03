@@ -9,9 +9,11 @@
   },
   "homepage": "https://github.com/chingu-coders/Voyage2-Turtles-15#readme",
   "devDependencies": {
-    "eslint-config-google": "^0.9.1"
-  },
-  "dependencies": {
+    "eslint-config-google": "^0.9.1",
     "mocha": "^3.5.3"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "mocha"
   }
 }

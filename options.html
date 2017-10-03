@@ -1,12 +1,106 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="assets/css/global.css">
-  <script src="assets/js/options.js"></script>
-  <title>Pomodoras Options</title>
-</head>
-<body>
-    <h1>This is the Options Page</h1>
-</body>
-</html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/global.css">
+<script src="assets/js/options.js"></script>
+<title>Options</title>
+
+
+<nav class="nav navbar navbar-expand navbar-dark bg-dark mb-3">
+  <div class="col-2">
+    <a class="navbar-brand" href="#">Pomodoras</a>
+  </div>
+
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Options</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Stats</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <nav class="col-2 sidebar">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#whitelist">Whitelist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Timer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sound</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Export</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="col-10" role="main">
+
+      <h2><a id="whitelist">Whitelist</a></h2>
+      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+        Mauris pulvinar feugiat ipsum pretium feugiat. Aliquam et mi blandit, congue sem varius, condimentum leo.<br>
+        In volutpat velit ut lacus semper elementum sed id risus.</p>
+
+      <form name="options">
+        <div class="row">
+          <div class="col">
+
+            <div class="form-group">
+              <label for="whitelist">URL to whitelist:</label>
+              <input type="text" class="form-control" id="whitelist" placeholder="http://" name="domain">
+              <small id="whitelist" class="form-text text-muted">Use an asterisk (*) as a wildcard</small>
+            </div>
+
+          </div>
+          <div class="col">
+            Wildcards
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+
+            <div class="form-group">
+              <textarea class="form-control" id="whitelistedDomains" rows="3" name="whitelist"></textarea>
+            </div>
+
+          </div>
+          <div class="col">
+            Validate here?
+          </div>
+        </div>
+        <div class="my-3">
+          <button class="btn btn-primary" type="submit" name="submit">Save</btn>
+        </div>
+
+      </form>
+
+      <hr>
+      <pre id="logging"></pre>
+
+    </main>
+
+  </div>
+</div>
+
+<!--
+Refused to load the script '{all 3}' because it violates the following Content Security Policy directive: "script-src 'self' blob: filesystem: chrome-extension-resource:".
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+-->
