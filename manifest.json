@@ -33,6 +33,7 @@
     "webRequestBlocking",
     "<all_urls>",
     "storage",
+    "unlimitedStorage",
     "notifications"
   ]
 }

@@ -25,7 +25,9 @@ function fillForm(data) {
  * @return {boolean} is the input a valid domain
  */
 function isValidDomain(domain) {
-  return true;
+  // eslint-disable-next-line
+  let pattern = new RegExp('^(http(s)?:\/\/)?(www.)?([-a-z0-9\*]{1,63}\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\.[a-z]{2,6}(\/[*-\w@\+\.~#\?&/=%]*)?');
+  return pattern.test(domain);
 }
 
 /**
@@ -57,10 +59,13 @@ function validateDomainOnEnter(event) {
 
     let input = document.querySelector('input[name="domain"]');
     if (isValidDomain(input.value)) {
+      input.classList.add('is-valid');
       let whitelist = document.querySelector('textarea[name="whitelist"]');
       whitelist.textContent = `${whitelist.textContent}\n${input.value}`;
     } else {
-      // invalid domain
+      input.classList.add('is-invalid');
+      // let small = document.querySelector('small.whitelist');
+      // small.add
     }
   }
 }
